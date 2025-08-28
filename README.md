@@ -14,7 +14,7 @@ subgraph tdf[Flujo de las Seniales]
     subgraph subgraph_padding [ ]
         style subgraph_padding fill:none,stroke:none;
         %% padding to stop the titles clashing
-        subgraph od[devops-nxt-latam2025]
+        subgraph od[kcd-colombia-2025]
         ms(python)
         end
 
