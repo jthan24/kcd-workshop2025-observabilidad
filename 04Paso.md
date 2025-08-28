@@ -41,11 +41,6 @@ service:
       processors: [batch]
 ```
 
-```bash
-rm /tmp/otel-collector-config.yaml
-ln -s $PWD/otel-collector-configv2.yaml /tmp/otel-collector-config.yaml
-```
-
 ### crear una red en docker
 ```bash
 docker network create devops
@@ -77,9 +72,6 @@ storage:
 ```
 
 ```bash
-mkdir -p /tmp/prometheus
-ln -s $PWD/prometheus-config.yaml /tmp/prometheus/prometheus-config.yaml
-
 docker run -p 9090:9090 --rm --name prometheus --network devops \
   -v /tmp/prometheus/prometheus-config.yaml:/etc/prometheus/prometheus-config.yaml \
   quay.io/prometheus/prometheus:v3.2.0 \
@@ -121,6 +113,7 @@ pip install opentelemetry-exporter-otlp
 
 ### Ejecutar la app instrumentada
 ```bash
+export OTEL_SERVICE_NAME="lanzardado"
 export OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
 opentelemetry-instrument --logs_exporter otlp flask run -p 8080
 ```
@@ -135,10 +128,20 @@ http://localhost:8080/lanzardado
 curl -X GET http://localhost:8080/lanzardado
 # Player uno
 curl -X GET http://localhost:8080/lanzardado?jugador=uno
+# Multiples jugadores
+for i in $(seq 1 100); do curl -X GET http://localhost:8080/lanzardado?jugador=$i; done
 ```
 
 ### Verificar en prometheus
 http://localhost:9090/
 
+```promql
+target_info{job="lanzardado"}
+```
+
+
 ### Verificar en jaeger
 http://localhost:16686/
+
+#### Servicio
+lanzardado

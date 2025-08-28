@@ -33,11 +33,6 @@ service:
       processors: [batch]
 ```
 
-### Hacer un link simbolico para /tmp
-```bash
-ln -s $PWD/otel-collector-config.yaml /tmp/
-```
-
 ### Lanzar el colector
 ```bash
 docker run -p 4317:4317 --rm --name opentelemetry-colector \
@@ -68,4 +63,6 @@ http://localhost:8080/lanzardado
 curl -X GET http://localhost:8080/lanzardado
 # Player uno
 curl -X GET http://localhost:8080/lanzardado?jugador=uno
+# Multiples jugadores
+for i in $(seq 1 100); do curl -X GET http://localhost:8080/lanzardado?jugador=$i; done
 ```

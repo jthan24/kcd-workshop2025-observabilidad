@@ -26,9 +26,9 @@ curl -X GET http://localhost:8080/lanzardado?jugador=uno
 http://localhost:3000/grafana/
 
 #### Query para prometheus
-```json
-{job="unknown_service"}
+```promql
+{job="lanzardado"}
 ```
 
 #### Query para jaeger
-Seleccionar Search y en Service Name unknow_service
+Seleccionar Search y en Service Name lanzardado

@@ -3,8 +3,8 @@
 
 ### Activar el venv
 ```bash
-python3 -m venv venv
-source ./venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
 
@@ -53,4 +53,6 @@ http://localhost:8080/lanzardado
 curl -X GET http://localhost:8080/lanzardado
 # Player uno
 curl -X GET http://localhost:8080/lanzardado?jugador=uno
+# Multiples jugadores
+for i in $(seq 1 100); do curl -X GET http://localhost:8080/lanzardado?jugador=$i; done
 ```
